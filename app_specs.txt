@@ -1,0 +1,25 @@
+business specifications
+please use the sandbox environment to create this application.
+this project is to create an application to help the pharamcies to plan their employees schedule.The appication will use the optimization technique from operations research to optimize the schedule.
+this is a weekly planning and gives the following details:
+- day of week
+- employee name
+- hour
+- if emmployee is working  given day and hour.
+
+there are following constraints:
+- total weekly hours per employee
+- max hours per day per employee
+- daily shifts - the employee can only work in the given shift times
+- required  number of pharmacists for each shift
+- required number of preparators for each shift
+- employees planned absenses
+
+input datainput data needs to be validated and checked for the feasibility
+
+technical specifications:
+- the main code is expected in python
+- the python scipy.optimize.milp is expected to be used for optimization logic
+- the application should be web based.
+- there should be an online database to store the data
+- the application should have a user interface to input the data and to view the results.
