@@ -53,10 +53,36 @@ Exposes CRUD endpoints for employees, shifts, absences, and schedules:
 *   *Auto-Seeding*: On API startup, if the database is detected as empty (e.g. after a server restart), it automatically seeds the demo dataset.
 
 ### 3. Next.js Web UI (`index.tsx`, `employees.tsx`, `settings.tsx`)
-A dark-themed dashboard styled with a custom glassmorphism design:
-*   **Dashboard**: Shows stats, the main schedule calendar grid, a **"Validate Inputs"** check, and the **"Generate Schedule"** trigger.
-*   **"Reset Demo Data" Button**: Resets the database and populates the live site with the 7-employee demo dataset.
-*   **Forms**: Standard inputs to manage employees, shifts, and absences directly in the app.
+A dark-themed dashboard styled with a custom glassmorphism design, divided into three tabs:
+
+*   **Schedule Dashboard (`/`)**:
+    *   *What you see*:
+        *   Header actions: **Reset Demo Data** (orange), **Validate Inputs** (outline), and **Generate Schedule** (green).
+        *   Four KPI Cards showing the active count of *Pharmacists*, *Preparators*, *Shifts*, and *Assignments*.
+        *   A **Status Notification Panel**: Shows alert banners (e.g., green for validation pass, red for warning blocks detailing capacity shortfalls).
+        *   The **Weekly Schedule Grid**: A matrix where columns are daily shifts (e.g., Mon Morning, Mon Afternoon) and rows are employees grouped by role. A checkmark (`✓`) indicates a scheduled shift, and `—` means the employee is free.
+    *   *What you can do*:
+        *   Click **Reset Demo Data** to clear the DB and instantly seed the default dataset.
+        *   Click **Validate Inputs** to check if the schedule requirements are mathematically solvable.
+        *   Click **Generate Schedule** (unlocks upon validation success) to run the solver and update the roster grid.
+*   **Employees Tab (`/employees`)**:
+    *   *What you see*:
+        *   **Add Employee Form**: Text input for name, role picker (Pharmacist/Preparator), and number inputs for max daily and weekly hours.
+        *   **Record Absence Form**: Dropdown selector of registered employees, day selector, and start/end hour inputs.
+        *   **Staff Roster Table**: List of all employees with their names, role badges, maximum hours, and delete buttons (`🗑️`).
+        *   **Planned Absences Table**: List showing who is absent on which day and during which hours.
+    *   *What you can do*:
+        *   Register new employees and set their contract daily/weekly hour limits.
+        *   Record planned absences for any employee (which the solver will automatically respect).
+        *   Remove employees or absences by clicking their delete buttons (`🗑️`).
+*   **Shifts Tab (`/settings`)**:
+    *   *What you see*:
+        *   **Add Shift Form**: Name of the shift, day selector, start/end hours, and the required count of pharmacists and preparators.
+        *   **Weekly Shifts List**: A timeline grouped by day of the week showing all configured shift blocks, their operating hours, and required roles.
+    *   *What you can do*:
+        *   Add shift slots (e.g. Morning `08:00 - 16:00` or Afternoon `13:00 - 21:00`). Shifts can overlap.
+        *   Set minimum staffing coverage numbers (e.g. 1 pharmacist and 2 preparators needed).
+        *   Remove shifts by clicking their delete buttons (`🗑️`).
 
 ---
 
