@@ -14,7 +14,7 @@ The entire project—from database schema design and mathematical formulation to
 
 ## 2. Problem Statement
 Roster scheduling in a clinical or pharmaceutical environment is a challenging operational task. A valid pharmacy schedule must satisfy a variety of strict operational constraints:
-*   **Role Constraints**: Pharmacists and Preparators are not interchangeable. Certain shifts require a specific minimum number of licensed pharmacists to satisfy legal regulations, while other shifts require a specific count of preparators to maintain throughput.
+*   **Role & Legal Constraints**: Pharmacists and Preparators are not interchangeable. By law, a pharmacy cannot open or dispense medications without a minimum required number of licensed pharmacists present on the premises. Similarly, strict labor and health regulations specify the minimum count of preparators that must be present during shifts to ensure clinical safety. These staffing levels are non-negotiable legal mandates.
 *   **Contract Limits**: Employees have contractually agreed-upon maximum daily working limits (e.g., no more than 8 hours a day) and weekly limits (e.g., 35 hours a week) that cannot be breached.
 *   **Employee Availability**: Employees have planned absences (e.g., vacations, personal leave) that prevent them from working specific hours on specific days.
 *   **Operational Shifts**: Shift times are pre-determined (e.g., Morning Shift `08:00 - 16:00` or Afternoon Shift `13:00 - 21:00`) and can overlap. Employees can work at most one shift per day.
@@ -108,10 +108,11 @@ Let $E$ be the set of employees and $S$ be the set of configured shifts for the 
     If an employee $e$ has a planned absence on day $d$ that overlaps with the hours of shift $s$, they cannot be assigned to that shift. We enforce this by fixing the variable's upper bound to 0:
     $$y_{e, s} = 0 \quad \text{if absence overlaps with } s$$
 
-5.  **Shift Staffing Requirements**:
-    For each shift $s \in S$, we must satisfy the minimum required count of pharmacists ($req\_pharm_s$) and preparators ($req\_prep_s$):
+5.  **Role-Based Legal Staffing Constraints**:
+    For each shift $s \in S$, we must satisfy the strict legal requirements regarding the minimum active count of pharmacists ($req\_pharmacists_s$) and preparators ($req\_preparators_s$) required on site:
     $$\sum_{e \in Pharmacists} y_{e, s} \ge req\_pharmacists_s \quad \forall s \in S$$
     $$\sum_{e \in Preparators} y_{e, s} \ge req\_preparators_s \quad \forall s \in S$$
+    *(Violating these constraints would mean opening the pharmacy illegally without the mandatory clinical staff).*
 
 ### C. Objective Function
 We define the objective to **minimize the total scheduled hours**. This guarantees that the solver satisfies the shift coverage requirements without unnecessarily scheduling extra employees, keeping operations cost-effective:
