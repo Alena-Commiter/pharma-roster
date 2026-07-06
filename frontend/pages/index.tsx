@@ -276,6 +276,9 @@ export default function Home() {
             <div className="empty-state">
               <div className="spinner" style={{ margin: '0 auto' }}></div>
               <div className="empty-state-text mt-16">Loading schedule…</div>
+              <div className="empty-state-sub" style={{ marginTop: '12px', opacity: 0.7, maxWidth: '320px', margin: '12px auto 0' }}>
+                Note: Using free hosting. If the server is asleep, waking it up may take 30-40 seconds. Thank you for your patience!
+              </div>
             </div>
           ) : schedule.length === 0 ? (
             <div className="empty-state">
