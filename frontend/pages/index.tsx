@@ -2,7 +2,7 @@
 import Head from 'next/head'
 import { useState, useEffect, useCallback } from 'react'
 
-const API = 'http://localhost:8000'
+const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
 
 const DAY_NAMES = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 const DAY_CLASSES = ['day-monday','day-tuesday','day-wednesday','day-thursday','day-friday','day-saturday','day-sunday']
